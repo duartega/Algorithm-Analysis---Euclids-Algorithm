@@ -6,24 +6,24 @@ Authors : Gabriel Duarte, Elliot Newman
 
 # import libraries
 #from __future__ import print_function
-#import numpy as np
-#import matplotlib.pyplot as plt
+import numpy as np
+import matplotlib.pyplot as plt
 
 def euclids_algo(m,n, avg, count):
 
     if (int(n) == 0): # the base case
         return 0
     else:
-        p = int(m) % int(n) # gets the remainder
+        gcd = int(m) % int(n) # gets the remainder
         count += 1
         #avg += int(p)
         #print('avg:',avg)
-        if (p == 0):        # the base case
+        if (gcd == 0):        # the base case
             print('count:',count)
             return n
         else:
             #avg += int(n)
-            return euclids_algo(n, p, avg, count)
+            return euclids_algo(n, gcd, avg, count)
 
 def consec_int_checking(m,n):
     t = m # {m,n}

@@ -1,4 +1,5 @@
 #include <iostream>
+#include "gnuplot.h"
 
 using namespace std;
 
@@ -45,9 +46,6 @@ int consec_int_checking(int m, int n, int count)
   int t = 0;
   int original_n = n;
 
-  cout << "Here is the m: " << m << endl;
-  cout << "Here is the n: " << n << endl;
-
   if (n > m)
     {
       int swap = 0;
@@ -56,8 +54,6 @@ int consec_int_checking(int m, int n, int count)
       m = swap;
       original_n = n;
     }
-  cout << "\nHere is the m: " << m << endl;
-  cout << "Here is the n: " << n << endl;
   
   if (n < m)
     {

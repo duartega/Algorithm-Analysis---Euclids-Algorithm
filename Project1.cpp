@@ -4,50 +4,76 @@ using namespace std;
 
 int euclids_ago(int m, int n, int avg, int count){
   int gcd;
+  
 
   if (n == 0)
     return 0;
   else
-    gcd = m % n;
-  count += 1;
-
-  if (gcd == 0)
     {
-      cout << "Count: " << count << endl;
-      return n;
+      gcd = m % n;
+      count += 1;
+      
+      if (gcd == 0)
+	{
+	  cout << "Count: " << count << endl;
+	  return n;
+	}
+      else
+	{
+	  return euclids_ago(n, gcd, avg, count);
+	}
     }
-  else
+  //avg_euclid(count, 0);
+  /*int avg_euclid(int count, int n)
+{
+  for (int i = n; i < count; i++)
     {
-      return euclids_ago(n, gcd, avg, count);
+      i += i;
+      
+      return avg_euclid(count, i);
     }
-    
-
 }
+  */
+}
+
 
 int consec_int_checking(int m, int n)
 {
+
   int temp = 0;
-  int temp2 = 0;
+  int temp2 = 1;
   int t = 0;
+  int original_n = n;
+  
   if (n < m)
     {
       while (temp != temp2)
 	{
 	  t = n;
-	  cout << "t = " << t << endl;
-	  temp = n/t;
-	  cout << "temp = " << temp << endl;
-	  if (isdigit(temp))
+	  temp = m%t;
+	  cout << "Temp: " << temp << endl;
+	  cout << "T: " << t << endl;
+	  if (temp == 0)
 	    {
-	      cout << "This made it\n";
-	      temp2 = m/t;
+	      temp2 = original_n%t;
+	      cout << "Temp2: " << temp << endl;
+	      if (temp2 == 0 && temp == temp2)
+		{
+		  cout << "T= " << t << endl;
+		  return t;
+		}
+	      else
+		{
+		n --;
+		cout << "This is t: " << endl;
+		}
+		
 	    }
-	  n -=1;
+	  else
+	    n--;
 	}
     }
-
 }
-
 int main() {
 
   int avg = 0;

@@ -12,13 +12,15 @@ import math
 
 def euclids_algo(m,n, avg, count):
 
-    if (int(n) == 0 or int (m) == 0):         # the base case
+    # Create the base case for m and n, NOT gcd
+    if (int(n) == 0 or int (m) == 0):
         return 0
     else:
         gcd = int(m) % int(n) # gets the remainder
         count += 1
 
-        if (gcd == 0):        # the base case
+        # Sets the base case for the GCD
+        if (gcd == 0):
             print('Number of modulo divisions:',count)
             return n
         else:
@@ -33,8 +35,12 @@ def consec_int_checking(m,n, count):
     t = 0.0
     original_n = int(n) # Hold our original value of n as n will change
 
-    if (int(n) == 0 or int (m) == 0): # the base case
+    # Create the base case for m and n
+    if (int(n) == 0 or int (m) == 0):
         return 0
+
+    # Create another base case because we check to see the lower of the two
+    # variables before finding gcd
     if (int(n) == int(m)):
         return int(m)
     
@@ -50,9 +56,13 @@ def consec_int_checking(m,n, count):
             t = int(n)
             temp = int(m) % int(t)
             count += 1
+
+            # Once the algorithm finds that temp = 0, then find gcd for temp2
             if (int(temp) == 0.0):
                 temp2 = int(original_n) % int(t)
                 count += 1
+
+                # If temp is equal to temp2, then we have found the gcd
                 if (int(temp2) == 0.0 and int(temp) == int(temp2)):
                     print("Number of modulo divisions:",count)
                     return t
@@ -62,6 +72,8 @@ def consec_int_checking(m,n, count):
                 n = int(n) - int(1.0)
 
 def Fib():
+
+    # Im still working on this
     x = int(input("What position in the Fibonacci sequence would you like to see up to? "))
     arr = []
     arr.append(int(0)) # This is for arr[0] = 1
@@ -78,25 +90,32 @@ def Fib():
 
 
 def sieve(n):
-    arr = []
-    temp = []
-    primes = []
+
+    # Initialize the arrays
+    arr = []    # To populate 2 to n
+    temp = []   # To populate the multiples
+    primes = [] # To populate the primes
 
     # Creates the array from 2 to n
     for i in range (2,n):
         arr.append(i)
 
+    # Start at 2 to the square root of n so that we dont have to type every case
+    # For ex: if n = 25, we don't have to say if n%2 == 0 and n%3 == 0 to n%24 ==0
+    #         the square root of n, will cover all such cases from SQRT(n) down to 2
     for i in range(2, int(math.sqrt(n))):
         if (arr[i] != 0): 
-            j = i*i
+            j = i*i                 # Will calculate a multiple of the current element
             while (j <= n):
-                temp.append(int(j))
-                j += i
+                temp.append(int(j)) # This will add the multiples to the array
+                j += i              # This will go to the next multiple
 
+    # This now populates the primes array with any number that isn't in the multiples list
     for i in range(2, n):
         if (i not in temp):
             primes.append(i)
 
+    # Print the primes
     for i in range(len(primes)):
         print(primes[i])
 

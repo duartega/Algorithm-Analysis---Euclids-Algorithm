@@ -1,64 +1,62 @@
+using namespace std;
+int gcdset(int m, int n, int count)
+{
+        if (n==0) return 0;
+        count++;
+        gcdset(n, m % n, count);
+        return count;
+}
 #include <iostream>
 
 using namespace std;
-int global_count = 0;
+int gcdset(int m, int n, int count)
+{
+        if (n==0) return 0;
+        count++;
+        gcdset(n, m % n, count);
 
+        return count;
 
-int euclids_ago(int m, int n, int count, int done)
+}
+int euclids_ago(int m, int n, int count)
 {
         int gcd;
 
         if (n == 0)
                 return 0;
         else
-        {
                 gcd = m % n;
 
-                count += 1;
+        count += 1;
 
+        if (gcd == 0)
+        {
+                cout << "Count: " << count << endl;
+                int array[count];
+                int finalcount = count;
 
-                if (gcd == 0)
-                {
-                        if (done == 10) {
-                                cout << "Count: " << count << endl;
-                                global_count = count;
+                for (int i =0; i < finalcount; i++)
+                  {
+                          array[i] = gcdset(finalcount, i, 0);
+                          cout << "Set: " << array[i] << endl;
+                      }
+
+                else{
+                        int total;
+                        for (int i = 0; i < count; i++)
+                        {
+                                total  += array[i];
                         }
-                        return n;
-                }
-                else
-                {
-                        if (done == 10)
-                                euclids_ago(n, gcd, count, 10);
-                        else
-                                euclids_ago(n, gcd, count, 11);
                 }
         }
-}
-
-float calc_avg(int sCount)
-{
-        int array[sCount];
-        int rec = 11;
-        for(int i=0; i < sCount; i++)
-        {
-                array[i] = euclids_ago(sCount, i, 0, rec);
-                rec++;
-
-
-        }
-        float avg = 0.0;
-        int total = 0;
-
-        for (int j = 0; j < sCount; j++)
-        {
-                total +=array[j];
-        }
-
-        avg = (float)total / (float)sCount;
-
-        return avg;
+        else
+          euclids_ago(n, gcd, count);
+        
+        return n;
 
 }
+
+
 
 int consec_int_checking(int m, int n)
 {
@@ -86,7 +84,7 @@ int consec_int_checking(int m, int n)
 
 int main() {
 
-
+        int avg = 0;
         int count = 0;
         int eu_al_m = 0;
         int eu_al_n = 0;
@@ -99,12 +97,9 @@ int main() {
         cin >> eu_al_n;
         cout << endl;
 
-        out = euclids_ago(eu_al_m, eu_al_n, count, 10);
-
+        out = euclids_ago(eu_al_m, eu_al_n, count);
         cout << "GCD: " << out << endl;
 
-        float output2 = calc_avg(global_count);
-        cout << "Average is: " << output2 << endl;
-
+        consec_int_checking(eu_al_m, eu_al_n);
         return 0;
 }

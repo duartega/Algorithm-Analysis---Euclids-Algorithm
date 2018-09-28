@@ -43,8 +43,6 @@ float calc_avg(int sCount)
         {
                 array[i] = euclids_ago(sCount, i, 0, rec);
                 rec++;
-
-
         }
         float avg = 0.0;
         int total = 0;
@@ -60,29 +58,58 @@ float calc_avg(int sCount)
 
 }
 
-int consec_int_checking(int m, int n)
+int consec_int_checking(int m, int n, int count)
 {
         int temp = 0;
         int temp2 = 0;
         int t = 0;
-        if (n < m)
-        {
-                while (temp != temp2)
-                {
-                        t = n;
-                        cout << "t = " << t << endl;
-                        temp = n/t;
-                        cout << "temp = " << temp << endl;
-                        if (isdigit(temp))
-                        {
-                                cout << "This made it\n";
-                                temp2 = m/t;
-                        }
-                        n -=1;
-                }
-        }
+	int original_n = n;
 
+	if (n == 0 || m == 0)
+	  return 0;
+
+	if (n == m)
+	  return m;
+
+	if (n > m)
+	  {
+	    int swap = n;
+	    n = m;
+	    m = swap;
+	    original_n = n;
+	  }
+
+	if (n < m)
+	  {
+	    while (temp2 != 0)
+	      {
+		t = n;
+		temp = m % t;
+		count += 1;
+		
+		if (temp == 0)
+		  {
+		    temp2 = original_n % t;
+		    count += 1;
+		    
+		    if (temp2 == 0 && temp == temp2)
+		      {
+			cout << "Number of modulo divisions: " << count << endl;
+			return t;
+		      }
+		    else
+		      {
+			n -= 1;
+		      }
+		  }
+		else
+		  {
+		    n -= 1;
+		  }
+	      }
+	  }
 }
+
 
 int main() {
 
@@ -106,5 +133,9 @@ int main() {
         float output2 = calc_avg(global_count);
         cout << "Average is: " << output2 << endl;
 
+    
+	out = consec_int_checking(eu_al_m, eu_al_n, count);
+	cout << "Consecutive GCD: " << out << endl;
+	
         return 0;
 }

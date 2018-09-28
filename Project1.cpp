@@ -55,9 +55,10 @@ int consec_int_checking(int m, int n, int count, int done)
 
         if (n < m)
         {
-
+                int count = 0;
                 while (temp2 != 0)
                 {
+                        count++;
                         t = n;
                         temp = m%t;
                         if (temp == 0)
@@ -67,9 +68,9 @@ int consec_int_checking(int m, int n, int count, int done)
                                 {
                                         if(done == 0)
                                         {
-                                                cout << "T= " << t << endl;
-                                                global_count2 = t;
-                                                cout << global_count2 << endl;
+                                                cout << "Count: " << count << endl;
+                                                global_count2 = count;
+
                                         }
                                         return t;
                                 }
@@ -157,16 +158,15 @@ int main() {
         cout << "GCD: " << out << endl;
 
         float output2 = euclids_avg(global_count);
-        cout << "Average of Euclid's Algoithm is: " << output2 << endl;
+        cout << "Average of Euclid's Algoithm is: " << output2 << endl << endl;
 
+        cout << "Consecutive Integer Checking" << endl;
         int output3 = consec_int_checking(eu_al_m,eu_al_n,count, 0);
 
-        float output4 = consec_avg(global_count);
+        float output4 = consec_avg(global_count2);
         cout << "Average of Consecutive Integers is: " << output4 << endl;
 
 
-        out = consec_int_checking(eu_al_m, eu_al_n, count);
-        cout << "Consecutive GCD: " << out << endl;
 
         return 0;
 }

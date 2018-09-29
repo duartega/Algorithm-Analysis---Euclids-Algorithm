@@ -27,8 +27,6 @@ def euclids_algo(m, n, count, done):
 
         # Sets the base case for the GCD
         if (gcd == 0):
-            #if (done == int(10)):
-                #print('\nNumber of modulo divisions:',count)
             return count
         else:
             if (done == int(10)):
@@ -74,9 +72,7 @@ def consec_int_checking(m,n, count, done):
 
                 # If temp is equal to temp2, then we have found the gcd
                 if (int(temp2) == 0.0 and int(temp) == int(temp2)):
-                    
-                    if (done == 10):
-                        print("\nNumber of modulo divisions:",count)
+
                     return count
                 else:
                     n = int(n) - int(1.0)
@@ -97,10 +93,10 @@ def Fib(x, n):
     count = int(0)
     ret_count = int(0)
 
-    #GCD(m,n) qhwew m = F(k+1) and n = F(k) for k > 1
+    #GCD(m,n) where m = F(k+1) and n = F(k) for k > 1
     for i in range(1, len(arr)-1):
-        ret_count = euclids_algo(arr[i], arr[i-1], count, int(10))
-    #print("\nNumber of modulo divisions for (", arr[-2], ", ", arr[-3], ") is:", fib_count)
+        ret_count += euclids_algo(arr[i], arr[i-1], count, int(10))
+
     if (n == 1):
         return ret_count
     if (n == 2):
@@ -170,26 +166,27 @@ def scatter_plot(arr, avg, sCount, n):
     fig, ax = plt.subplots()
    
     ax.grid(True, zorder=0)
-    ax.set_ylabel('GCD at iteration "i"')
+    ax.set_ylabel('GCD(n,n) at iteration "i"')
     ax.set_xlabel('Iterations')
     
     for i, _ in enumerate(arr):
-        x = plt.scatter(i, arr[i], c='b', marker='x')
-    #y = ax.hlines(avg, 0, avg*sCount, colors='r', linestyles='dashed', label='Average')
+        plt.scatter(i, arr[i], c='b', marker='x')
     
     if (n == 1):
+        fig.canvas.set_window_title('Euclids Algorithm') 
         ax.set_title('MDavg(n) Scatterplot')
-        #ax.legend((y,x),('MDavg(n)','GCD'),loc='upper left')
     elif (n == 2):
+        fig.canvas.set_window_title('Consecutive Integer Checking Algorithm')         
         ax.set_title('Davg(n) Scatterplot')
-        #ax.legend((y,x),('Davg(n)','GCD'),loc='upper left')
     elif (n == 3):
-        ax.set_title('MDworst(n) Scatterplot')
-        #ax.legend((y,x),('MDworst(n)','GCD'),loc='upper left')
+        fig.canvas.set_window_title('Euclids Algorithm') 
+        ax.set_title('MDworst(n) Scatterplot (Fib Seq)')
 
     plt.show()
 
 def common_elements():
+
+    # Initialize variables to have randomness from 0 to 10
     start = int(0)
     end = int(10)
 
@@ -207,54 +204,42 @@ def common_elements():
     A.sort()
     B.sort()
 
-    #A =  [2, 5, 5, 5, 15]
-
-
-    #B = [2, 2, 3, 5, 5, 7, 15, 20]
-
-
     print("A:",A,"\nB:",B)
-
     
     i = int(0)
     j = int(0)
     while((i != len(A)-1)  or (j != len(B)-1)):
-        #---------------------------------------------
+
         if (i == len(A)-1):
-            #print("Final I:", A[i], " ", B[j])
             if (A[-1] == B[j]):
                 C.append(A[-1])
                 A[-1] = int(0)
                 break
         if (j == len(B)-1):
-            #print("Final J:", A[i], " ", B[j])
             if (B[-1] == A[i]):
                 C.append(B[-1])
                 B[-1] = int(0)
                 break
-        #---------------------------------------------
+
         if (int(A[i]) == int(B[j]) and (i+1 != None or j+1 != None)):
             C.append(A[i])
             if (i != len(A) or j != len(B)):
                 i += int(1)
                 j += int(1)
-                #print("A[i]:",A[i], " B[j]:",B[j])
-                #print("I:",i, " J:",j)
+
             continue
         if (int(A[i]) > int(B[j])):
             if (j != len(B)-1):
                 j += int(1)
             else:
                 break
-            #print("A2[i]:",A[i], " B2[j]:",B[j])
-            #print("I:",i, " J:",j)
+
         if (int(A[i]) < int(B[j])):
             if (i != len(A)-1):
                 i += int(1)
             else:
                 break
-            #print("A3[i]:",A[i], " B3[j]:",B[j])
-            #print("I:",i, " J:",j)
+
 
         if (i == len(A)-1 and A[-1] <= B[j]):
             continue
@@ -263,14 +248,23 @@ def common_elements():
 
     if (A[-1] == B[-1]):
         C.append(A[-1])
-    #C = list((Counter(A) & Counter(B)).elements())
+
     print("C:",C)
 
     
 
 def main():
 
-    end = int(100)
+    inp = input("Would you like to enter an m and n to show that Euclids and Consecutive checking are working? (y/n)")
+    if (inp == "y"):
+        m = int(input("Please enter a m:"))
+        n = int(input("Please enter a n:"))
+        out = euclids_algo(m,n,0,0)
+        print("GCD Euclids:", out)
+
+
+    end = int(input("Please enter a random number to use for Euclids and Consecutive:"))
+    #end = int(400)
     newarray = []
     newarray2 = []
     newarray3 = []
@@ -279,37 +273,43 @@ def main():
         out2 = float(calc_avg(i, 1, 0))
         newarray.append(out2)
 
-    x = input("Would you like to see the scatter plot? (y/n)")
+    x = input("Would you like to see the scatter plot for Euclids Algorithm? (y/n)")
     if (x == 'y'):
+        print("Loading Scatterplot for Euclid's Algorithm...")
         scatter_plot(newarray, newarray, end, int(1))
         
 
     for i in range(0, end, 5):
         out3 = float(calc_avg(i, 2, 0))
         newarray2.append(out3)
-    x = input("Would you like to see the scatter plot? (y/n)")
+    x = input("Would you like to see the scatter plot for Consecutive Integer Checking? (y/n)")
     if (x == 'y'):
+        print("Loading Scatterplot for Checking Consecutive Integers Algorithm...")
         scatter_plot(newarray2, newarray2, end, int(2))
 
 
-    x = int(input("\nWhat position in the Fibonacci sequence would you like to see up to? "))
+    x = int(input("\nWhat position in the Fibonacci sequence would you like to see up to? (998 is the max position) "))
     start = time.time()
     ret_count = Fib(int(x), int(1))
+    print("Number of Mod Divisions:", ret_count)
 
     for i in range(0, x, 5):
         out4 = float(calc_avg(i, 3, 0))
         newarray3.append(out4)
     end = time.time()
     print("\nTime taken to run Fib Seq:",end-start)
-    x = input("Would you like to see the scatter plot? (y/n)")
+    y = input("Would you like to see the scatter plot? (y/n)")
 
-    if (x == 'y'):
-        scatter_plot(newarray3, newarray3, ret_count, int(3))
+    if (y == 'y'):
+        scatter_plot(newarray3, newarray3, x, int(3))
     
     common_elements()
 
 
-   # inp = int(input("\nPlease enter a number to find its primes: "))
-   # sieve(inp)
+    inp = int(input("\nPlease enter a number to find its primes: "))
+    start = time.time()
+    sieve(inp)
+    end = time.time()
+    print("\nTime taken to run sieve of Eratosthenes Algorithm:",end-start)   
 
 main()
